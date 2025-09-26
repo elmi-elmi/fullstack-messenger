@@ -2,18 +2,16 @@ import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
+import { type NavItem, type SharedData, User } from '@/types';
+import { Link, usePage } from '@inertiajs/react';
+import { BookOpen, Folder } from 'lucide-react';
 import AppLogo from './app-logo';
+import { useEffect, useState } from 'react';
+import { useEchoPresence } from '@laravel/echo-react';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import AppLayout from '@/layouts/app-layout';
+import Home from '@/pages/home';
 
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-        icon: LayoutGrid,
-    },
-];
 
 const footerNavItems: NavItem[] = [
     {
@@ -29,22 +27,28 @@ const footerNavItems: NavItem[] = [
 ];
 
 export function AppSidebar() {
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
                 <SidebarMenu>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" asChild>
-                            <Link href="/dashboard" prefetch>
-                                <AppLogo />
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
+                    <div className={'flex justify-between items-center'}>
+                        <h2 className={''}>Conversations</h2>
+                        <SidebarMenuItem >
+                            <SidebarMenuButton size="lg" asChild>
+                                <Link href="/" prefetch >
+                                    <PencilSquareIcon/>
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    </div>
+
                 </SidebarMenu>
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain
+                />
             </SidebarContent>
 
             <SidebarFooter>
@@ -54,3 +58,4 @@ export function AppSidebar() {
         </Sidebar>
     );
 }
+
